@@ -1,0 +1,388 @@
+nav {
+  text-align: center;
+  font-size: 14px;
+  background-color: rgb(191, 199, 245);
+  width: 100%;
+  
+}
+
+.Tlogin {
+  padding: 0px;
+  margin: 0px;
+  
+}
+
+.connect {
+  font-size: 16px;
+  padding: 0px;
+  
+}
+
+
+.dropbtn {
+  background-color: rgb(191, 199, 245);
+  color: rgb(255, 255, 255);
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropbtn1 {
+  background-color: rgb(191, 199, 245);
+  color: rgb(255, 255, 255);
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  margin: 0px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(115, 103, 146, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: rgb(117, 122, 146);
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: rgb(140, 158, 170);
+}
+
+.color-change:hover .dropbtn1 {
+  background-color: rgb(140, 158, 170);
+}
+
+
+.Base {
+  width: 150px;
+  height: 50px;
+  margin: 10px 0 10px 500px;
+  padding: 10px 35px 10px 35px;
+  border-radius: 2px;
+  box-shadow: 2px 2px 0 0 rgba(157, 139, 127, 0.25);
+  background-color: rgb(191, 199, 245);
+  color: white;
+  ;
+}
+
+.BG-Copy {
+  margin: 10px 40px 10px 10px;
+  padding: 10px 5px 10px 5px;
+  border-color: #2f3944;
+}
+
+table {
+  border: 2px solid #2f3944;
+  font-family: 微軟正黑體;
+  font-size: 16px;
+  text-align: center;
+  border-collapse: collapse;
+  margin: 10px;
+
+}
+
+th {
+  background-color: rgb(191, 199, 245);
+  border: 1px solid #2f3944;
+  color: #fff;
+}
+
+td {
+  border: 1px solid #2f3944;
+}
+
+tr {
+  border-style: double;
+  border-color: #2f3944;
+  height: 60px;
+}
+
+.card {
+  padding: 20px;
+  margin: 20px 10px;
+  border-radius: 15px;
+  background-size: cover;
+  
+  
+}
+
+.ad{
+  padding: 0px;
+  margin: 0px 0px;
+  background-size: cover;
+  float: left;
+}
+
+.down{
+  margin-top: 520px;
+}
+
+img {
+  align-items: center;
+  display: inline-block;
+  padding: 30px;
+}
+
+#tab > div {
+  clear: both;
+  
+  height: 0;
+  overflow: hidden;
+}
+
+#tab-1:target ~ #tab > ul li a[href$="#主機"],
+#tab-2:target ~ #tab > ul li a[href$="#text"],
+#tab-3:target ~ #tab > ul li a[href$="#tab-3"],
+#tab-4:target ~ #tab > ul li a[href$="#tab-4"] {
+    background: #fff;
+    border-radius: 5px ;
+    
+    height: 100%;
+}
+
+aside {
+  float: right;
+  background-color: rgb(191, 199, 245);
+  height: 6000px;
+}
+
+.homebtn {
+  background-color: rgb(191, 199, 245);
+  color: rgb(52, 54, 74);
+  font-size: 16px;
+  border: double;
+  width: 80px;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+}
+
+*{
+  box-sizing: border-box;
+}
+
+
+
+
+
+#tab > ul {
+  margin: 0;
+  padding: 10px 20px 0 20px;
+}
+
+#tab > ul > li {
+  list-style-type: none;
+}
+
+
+#tab > ul > li > a {
+  text-decoration: none;
+  font-size:rgb(0, 0, 0) 15px;
+  color: rgb(47, 45, 45);
+  float: left;
+  padding: 10px;
+  margin-left: 5px;
+}
+
+#tab > div {
+  clear: both;
+  padding: 0 15px;
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+
+span:target ~ #tab > ul li:first-child a {
+  background: #92a99d;
+}
+
+span:target ~ #bbc0d2div:first-of-type {
+  visibility: hidden;
+  height: 0;
+  padding: 0 15px;
+}
+
+
+span ~ #tab > ul li:first-child a,
+#tab-1:target ~ #tab > ul li a[href$="#tab-1"],
+#tab-2:target ~ #tab > ul li a[href$="#tab-2"],
+#tab-3:target ~ #tab > ul li a[href$="#tab-3"],
+#tab-4:target ~ #tab > ul li a[href$="#tab-4"] {
+  background: #fff;
+  border-radius: 5px 5px 0 0;
+}
+
+span ~ #tab > ul li:first-child a::before,
+#tab-1:target ~ #tab > ul li a[href$="#tab-1"]::before,
+#tab-2:target ~ #tab > ul li a[href$="#tab-2"]::before,
+#tab-3:target ~ #tab > ul li a[href$="#tab-3"]::before,
+#tab-4:target ~ #tab > ul li a[href$="#tab-4"]::before {
+  background-color: white;
+  height: 100%;
+}
+
+span ~ #tab > div:first-of-type,
+#tab-1:target ~ #tab > div.tab-content-1,
+#tab-2:target ~ #tab > div.tab-content-2,
+#tab-3:target ~ #tab > div.tab-content-3,
+#tab-4:target ~ #tab > div.tab-content-4 {
+  visibility: visible;
+  height: 200px;
+  background: #fff;
+}
+
+span {
+  display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.container {
+  position: absolute;
+  width: 98.96%;
+  margin-top: -20px;
+ 
+  
+}
+
+.mySlides {
+  display: none;
+  background-color: rgb(234, 240, 242);
+}
+
+.cursor {
+  cursor: pointer;
+  
+}
+
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 40%;
+  width: auto;
+  padding: 16px;
+  margin-top: -50px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover,
+.next:hover {
+  background-color: rgba(176, 192, 207, 0.8);
+}
+
+.numbertext {
+  color: #c4b5b5;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+.caption-container {
+  text-align: center;
+  background-color: rgb(191, 199, 245);
+  padding: 2px 16px;
+  color: rgb(255, 255, 255);
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.column {
+  float: left;
+  width: 16.66%;
+}
+
+.demo {
+  opacity: 0.6;
+}
+
+.active,
+.demo:hover {
+  opacity: 1;
+}
+.mm{
+  margin-top: 520px;
+ 
+  
+  
+}
+
+footer {
+  background-color: rgb(191, 199, 245);
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  bottom: 0;
+  width: 100%;
+}
+
+
+
+
+.aa{
+  text-align: center;
+  background-color: rgb(191, 199, 245);
+  height: 44px;
+  color: white;
+}
+
+main{
+  width: 100%;
+
+}
+
+.cc{
+  text-align: center;
+  font-size: 20px;
+}
+.z{
+  margin-left: 40%;
+}

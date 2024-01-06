@@ -1,0 +1,67 @@
+.personal{
+    border-style: double;
+    margin: 20px;
+    padding: 10px;
+
+}
+input {
+  width: 20%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+.data{
+    border-style: double;
+    margin: 20px;
+    padding: 10px;
+}
+
+.person{
+    padding : 0px;
+    margin : 0px;
+}
+
+.register{
+    padding: 0px;
+    margin: 0px;
+}
+
+input[type=submit] {
+    background-color: rgb(102, 102, 144);
+    color: white;
+  }
+  #message {
+    display:none;
+    background: #f1f1f1;
+    color: #000;
+    position: relative;
+    padding: 20px;
+    margin-top: 10px;
+  }
+
+  #message p {
+    padding: 10px 35px;
+    font-size: 18px;
+  }
+  .valid {
+    color: lightblue;
+  }
+
+  .valid:before {
+    position: relative;
+    left: -35px;
+    content: "&#10004;";
+  }
+  .invalid {
+    color: rgb(0, 255, 200);
+  }
+
+  .invalid:before {
+    position: relative;
+    left: -35px;
+    content: "&#10006;";
+  }

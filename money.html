@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="money.css">
+    <title>付款介面</title>
+</head>
+<script>
+function validateForm(){
+    var y = document.forms["myform"]["phonenumber"].value;
+    if (y == "" || y == null) {
+    alert("電話 must be filled out");
+    return false;
+    }
+    var l = document.forms["myform"]["where"].value;
+    if (l == "" || l == null) {
+    alert("門市地址 must be filled out");
+    return false;
+    }
+    var p = document.forms["myform"]["pay money"].value;
+    if (p == "" || p == null) {
+    alert("付款方式 must be filled out");
+    return false;
+    }
+}
+</script>
+
+<body >
+    <form name="myform" action="" onsubmit="return validateForm()" method="post" required>
+        <div class="k" >應付金額:<Input type="" name=""><br>
+        <span class="k" name="付款方式">
+                付款方式:
+                <select size="1" name="pay money">
+                    <option>貨到付款</option>
+                    <option>信用卡付款</option>
+                </select>
+            
+            <p class="k">電話號碼:<Input type="tel" name="phonenumber" ></p><br>
+            <p class="k" >門市選擇:
+                <select size="1" name="where" >
+                    <option>7-11門市
+                        
+                    </option>
+                    <option>ok-Mart
+                        
+                    </option>
+                    <option> 萊爾富
+                        
+                    </option>
+                    <option>
+                        送貨上門
+            
+                    </option>
+                </select>
+                <input type="text">
+            </p>
+
+    
+
+            <div class="container">
+                    <input class="l" type="submit"  value="提交" >
+                    <input class="l" type="reset" value="取消" >
+            </div>
+
+        </div>
+        
+
+        
+    </form>
+    <a href="totalpage.html"><input class="homebtn"  type="button"  value="回首頁"></a>
+</body>
+</html>

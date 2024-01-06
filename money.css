@@ -1,0 +1,36 @@
+body {
+  background-color: rgb(205, 208, 232);
+
+}
+
+.k {
+  background-color: rgb(234, 236, 236);
+}
+
+.l {
+    background-color: rgb(229, 230, 237);
+    color: rgb(28, 34, 106);
+    font-size: 16px;
+    border: double;
+    width: 80px;
+    float: left;
+
+}
+
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.homebtn {
+  background-color: rgb(192, 198, 231);
+  color: rgb(52, 54, 74);
+  font-size: 16px;
+  border: double;
+  width: 80px;
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+}

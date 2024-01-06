@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="total.css">
+    
+    <style>
+       p {
+            color: rgba(32, 72, 83, 0.556);
+        }
+       /* 背景遮罩 */
+       .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* 半透明深灰色 */
+        }
+
+        /* 詳細資訊框 */
+        .productDetails {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background: #fff; /* 白色背景 */
+            z-index: 1;
+        }
+
+        /* 用於顯示搜尋結果的容器 */
+        #searchResults {
+            display: none;
+            padding: 5px;
+            border: 1px solid #ccc;
+            margin-top: 5px;
+        }
+
+        /* 隱藏其他內容的樣式 */
+        .hidden {
+            display: none;
+        }
+        /* 搜尋結果的樣式 */
+        .searchResult {
+            margin-top: 0px;
+            width: 100%;
+        }
+        .ww{
+          color: white;
+        }
+    </style>
+
+</head>
+<body>
+  <!-- 搜尋表單 -->
+  <form id="searchForm">
+    <label for="searchInput">輸入產品名稱：</label>
+    <input type="text" id="searchInput" name="searchInput" placeholder="主機">
+    <button type="button" onclick="performSearch()">搜尋</button>
+  </form>
+
+  
+
+
+
+  <script>
+    // 模擬的產品數據
+    var products = [
+        { id: '主機', content: '<div class="content"><img style="width:40%;" src="img/product/主機_款式1(黑色).png"><img style="width:40%;" src="img/product/主機_款式2(白色).png"><img style="width:40%;" src="img/product/主機_款式2(黑色).png"></div>' },
+        { id: '手機', content: '<div class="contect"><img style="width:400px;height: 300px;" src="img/product/智慧型手機(深藍色).png" /><img style="width:400px;height: 300px;" src="img/product/智慧型手機(淺藍色).png" /><img style="width:400px;height: 300px;" src="img/product/智慧型手機(白色).png" /><img style="width:400px;height: 300px;" src="img/product/智慧型手機(粉色).png" /><img style="width:400px;height: 300px;" src="img/product/智慧型手機(黑色).png" /></div>' },
+        { id: '筆記型電腦', content: '<img style="width:400px;height: 300px;" src="img/product/筆記型電腦(白色).png" /><img style="width:400px;height: 300px;" src="img/product/筆記型電腦款式2(黑色).png" />' },
+        { id: '桌上式螢幕', content: '<img style="width:400px;height: 300px;" src="img/product/桌上式螢幕_款式1(黑色).png" /><img style="width:400px;height: 300px;" src="img/product/桌上螢幕_款式2(可合併_白色).png" />' },
+        { id: '鍵盤', content: '<img style="width:400px;height: 300px;" src="img/product/鍵盤(淺藍色).png" /><img style="width:400px;height: 300px;" src="img/product/鍵盤(灰白雙色).png" />' },
+        { id: '滑鼠', content: '<img style="width:400px;height: 300px;" src="img/product/滑鼠_款式1(黑色).png" /><img style="width:400px;height: 300px;" src="img/product/滑鼠_款式2(白色).png" />' },
+        { id: '耳機', content: '<img style="width:400px;height: 300px;" src="img/product/耳罩式耳機(黑色).png" /><img style="width:400px;height: 300px;" src="img/product/藍芽耳機(白色).png" /><img style="width:400px;height: 300px;" src="img/product/黑色有線耳機.png" />' },
+        // 添加更多的產品數據...
+    ];
+
+    // 執行搜尋的函數
+    function performSearch() {
+            // 獲取搜尋輸入框的值
+            var searchID = document.getElementById("searchInput").value;
+
+            // 在搜尋結果容器中顯示符合條件的產品
+            var searchResultsContainer = document.getElementById("searchResults");
+            searchResultsContainer.innerHTML = ''; // 清空先前的搜尋結果
+
+            // 遍歷產品數據，找到符合條件的產品
+            var foundProduct = products.find(function(product) {
+                return product.id === searchID;
+            });
+
+            if (foundProduct) {
+                // 將符合條件的產品顯示在搜尋結果容器中
+                var resultItem = document.createElement("div");
+                resultItem.innerHTML = "<h3>" + foundProduct.id + "</h3><p>" + foundProduct.content + "</p>";
+                searchResultsContainer.appendChild(resultItem);
+
+                // 隱藏其他內容
+                hideOtherContent();
+            } else {
+                alert("找不到該產品。");
+            }
+
+            // 顯示搜尋結果容器
+            searchResultsContainer.style.display = "block";
+        }
+
+        // 隱藏其他內容的函數
+        function hideOtherContent() {
+            // 獲取所有產品內容的元素
+            var allProductContents = document.querySelectorAll('.productContent');
+
+            // 將所有產品內容隱藏
+            allProductContents.forEach(function(productContent) {
+                productContent.classList.add('hidden');
+            });
+
+            // 將其他內容顯示
+            var otherContent = document.getElementById('otherContent');
+            otherContent.classList.remove('hidden');
+        }
+  </script>
+
+  <!-- 詳細資訊框 -->
+  <div class="overlay" id="overlay1" onclick="hideProductDetails('1')"></div>
+  <div class="productDetails" id="productDetails1">
+      <h2>主機_款式1(黑色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/主機_款式1(黑色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:深邃黑暗的主機領域，神秘而强大。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item1">
+          <input type="button" value="-" class="item_button" onclick="minus(0)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(0)">
+        </div>
+        <button type="submit" onclick="addToCart('0')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay2" onclick="hideProductDetails('2')"></div>
+  <div class="productDetails" id="productDetails2">
+      <h2>主機_款式2(白色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/主機_款式2(白色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:纯白之間，微彩边浸透活力。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item2">
+          <input type="button" value="-" class="item_button" onclick="minus(1)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(1)">
+        </div>
+        <button type="submit" onclick="addToCart('1')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay3" onclick="hideProductDetails('3')"></div>
+  <div class="productDetails" id="productDetails3">
+      <h2>主機_款式2(黑色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/主機_款式2(黑色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:神秘黑，微紅邊，霓虹脈動。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item3">
+          <input type="button" value="-" class="item_button" onclick="minus(2)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(2)">
+        </div>
+        <button type="submit" onclick="addToCart('2')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay4" onclick="hideProductDetails('4')"></div>
+  <div class="productDetails" id="productDetails4">
+      <h2>智慧型手機(深藍色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/智慧型手機(深藍色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:深藍智慧，科技韻味。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item4">
+          <input type="button" value="-" class="item_button" onclick="minus(3)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(3)">
+        </div>
+        <button type="submit" onclick="addToCart('3')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay5" onclick="hideProductDetails('5')"></div>
+  <div class="productDetails" id="productDetails5">
+      <h2>智慧型手機(淺藍色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/智慧型手機(淺藍色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:淺藍智慧，清新時尚。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item5">
+          <input type="button" value="-" class="item_button" onclick="minus(4)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(4)">
+        </div>
+        <button type="submit" onclick="addToCart('4')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay6" onclick="hideProductDetails('6')"></div>
+  <div class="productDetails" id="productDetails6">
+      <h2>智慧型手機(白色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/智慧型手機(白色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:素白智能，簡約雅致。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item6">
+          <input type="button" value="-" class="item_button" onclick="minus(5)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(5)">
+        </div>
+        <button type="submit" onclick="addToCart('5')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay7" onclick="hideProductDetails('7')"></div>
+  <div class="productDetails" id="productDetails7">
+      <h2>智慧型手機(粉色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/智慧型手機(粉色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:粉彩智慧，柔美時尚。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item7">
+          <input type="button" value="-" class="item_button" onclick="minus(6)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(6)">
+        </div>
+        <button type="submit" onclick="addToCart('6')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay8" onclick="hideProductDetails('8')"></div>
+  <div class="productDetails" id="productDetails8">
+      <h2>智慧型手機(黑色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/智慧型手機(黑色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:深邃黑智，科技霸氣。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item8">
+          <input type="button" value="-" class="item_button" onclick="minus(7)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(7)">
+        </div>
+        <button type="submit" onclick="addToCart('7')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay9" onclick="hideProductDetails('9')"></div>
+  <div class="productDetails" id="productDetails9">
+      <h2>筆記型電腦(白色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/筆記型電腦(白色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:純白筆電，輕盈便攜，簡約優雅。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item9">
+          <input type="button" value="-" class="item_button" onclick="minus(8)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(8)">
+        </div>
+        <button type="submit" onclick="addToCart('8')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay10" onclick="hideProductDetails('10')"></div>
+  <div class="productDetails" id="productDetails10">
+      <h2>筆記型電腦(黑色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/筆記型電腦款式2(黑色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:烏黑筆電，強悍性能，專業品味。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item10">
+          <input type="button" value="-" class="item_button" onclick="minus(9)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(9)">
+        </div>
+        <button type="submit" onclick="addToCart('9')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay11" onclick="hideProductDetails('11')"></div>
+  <div class="productDetails" id="productDetails11">
+      <h2>桌上式螢幕(黑色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/桌上式螢幕_款式1(黑色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:黑色桌面螢幕，科技尖端，視覺震撼。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item11">
+          <input type="button" value="-" class="item_button" onclick="minus(10)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(10)">
+        </div>
+        <button type="submit" onclick="addToCart('10')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay12" onclick="hideProductDetails('12')"></div>
+  <div class="productDetails" id="productDetails12">
+      <h2>桌上式螢幕(可合併_白色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/桌上螢幕_款式2(可合併_白色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:白色桌上螢幕，優雅整合，質感出眾。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item12">
+          <input type="button" value="-" class="item_button" onclick="minus(11)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(11)">
+        </div>
+        <button type="submit" onclick="addToCart('11')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay13" onclick="hideProductDetails('13')"></div>
+  <div class="productDetails" id="productDetails13">
+      <h2>鍵盤(淺藍色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/鍵盤(淺藍色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:淺藍鍵盤，清新打字。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item13">
+          <input type="button" value="-" class="item_button" onclick="minus(12)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(12)">
+        </div>
+        <button type="submit" onclick="addToCart('12')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay14" onclick="hideProductDetails('14')"></div>
+  <div class="productDetails" id="productDetails14">
+      <h2>鍵盤(灰白雙色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/鍵盤(灰白雙色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:灰白鍵盤，典雅設計。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item14">
+          <input type="button" value="-" class="item_button" onclick="minus(13)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(13)">
+        </div>
+        <button type="submit" onclick="addToCart('13')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay15" onclick="hideProductDetails('15')"></div>
+  <div class="productDetails" id="productDetails15">
+      <h2>滑鼠(黑色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/滑鼠_款式1(黑色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:黑色滑鼠，科技優雅。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item15">
+          <input type="button" value="-" class="item_button" onclick="minus(14)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(14)">
+        </div>
+        <button type="submit" onclick="addToCart('14')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay16" onclick="hideProductDetails('16')"></div>
+  <div class="productDetails" id="productDetails16">
+      <h2>滑鼠(白色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/滑鼠_款式2(白色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:白色滑鼠，純淨便捷。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item16">
+          <input type="button" value="-" class="item_button" onclick="minus(15)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(15)">
+        </div>
+        <button type="submit" onclick="addToCart('15')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay17" onclick="hideProductDetails('17')"></div>
+  <div class="productDetails" id="productDetails17">
+      <h2>耳罩式耳機(黑色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/耳罩式耳機(黑色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:黑色耳罩，音樂專注。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item17">
+          <input type="button" value="-" class="item_button" onclick="minus(16)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(16)">
+        </div>
+        <button type="submit" onclick="addToCart('16')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay18" onclick="hideProductDetails('18')"></div>
+  <div class="productDetails" id="productDetails18">
+      <h2>藍芽耳機(白色)</h2>
+      <img style="width:400px;height: 300px;" src="img/product/藍芽耳機(白色).png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:白色藍芽，音樂自由。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item18">
+          <input type="button" value="-" class="item_button" onclick="minus(17)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(17)">
+        </div>
+        <button type="submit" onclick="addToCart('17')">加入購物車</button>
+      </form>
+  </div>
+
+  <div class="overlay" id="overlay19" onclick="hideProductDetails('19')"></div>
+  <div class="productDetails" id="productDetails19">
+      <h2>黑色有線耳機</h2>
+      <img style="width:400px;height: 300px;" src="img/product/黑色有線耳機.png" />
+      <h1>主機</h1>
+	    <p>庫存數量：
+      <p>商品描述:黑色耳機，音樂深邃。</p>
+      <form id="addToCartForm">
+        <label for="quantity">數量：</label>
+        <div class="item19">
+          <input type="button" value="-" class="item_button" onclick="minus(18)">
+          <input type="text" value="1" class="item_num">
+          <input type="button" value="+" class="item_button" onclick="add(18)">
+        </div>
+        <button type="submit" onclick="addToCart('18')">加入購物車</button>
+      </form>
+  </div>
+
+  <script>
+    function showProductDetails(productID) {
+          var overlay = document.getElementById("overlay" + productID);
+          var productDetails = document.getElementById("productDetails" + productID);
+
+          overlay.style.display = "block";
+          productDetails.style.display = "block";
+      }
+
+      function hideProductDetails(productID) {
+          var overlay = document.getElementById("overlay" + productID);
+          var productDetails = document.getElementById("productDetails" + productID);
+
+          overlay.style.display = "none";
+          productDetails.style.display = "none";
+      }
+  </script>
+
+  
+    <nav class="connect">
+
+
+    <a href="#home" class="color-change"><button class="dropbtn1">主頁</button></a>
+    <div class="dropdown">
+      <button class="dropbtn">商品總覽</button>
+      <div class="dropdown-content">
+        <div class="header">
+          <h2>Menu</h2>
+        </div>   
+        
+          <div>
+            <h3>桌機</h3>
+            <a href="#主機">主機</a>
+            <a href="#滑鼠">滑鼠</a>
+            <a href="#螢幕">螢幕</a>
+          </div>
+          <div>
+            <h3>攜帶型</h3>
+            <a href="#筆記型電腦">筆記型電腦</a>
+            <a href="#手機">手機</a>
+            
+          </div>
+          <div >
+            <h3>其他</h3>
+            <a href="#耳機">耳機</a>
+            
+          </div>
+        
+      </div>
+    </div> 
+    <a href="text.html" class="color-change"><button class="dropbtn1">留言板</button></a>
+
+        
+    
+    <a href="produce.html" class="color-change"><button class="dropbtn1">組員介紹</button></a>
+    <a href="product.html"><img style="width: 45px; height:45px; margin: 0px; padding: 10px; float: right;" src="img/shopping-cart.png" alt=""></a>
+    
+    </nav>
+    
+    <main>
+      <aside class="mm">
+        <div>
+          <p class="Tlogin">
+              <h4>帳號: <input type="text" name="" id=""></h4>
+              <h4>密碼: <input type="text"></h4>
+          </p>
+  
+          <a href="registration_interface.html"><input type="button" value="會員註冊" class="signup"></input></a>
+          <input type="button" value="會員登入" calss="login">
+  
+        
+        
+          
+       </aside>
+      <section>   
+        
+
+          <article class="ad">
+            
+
+            <div class="container">
+              <div class="mySlides">
+                <div class="cc">
+                  新品折扣中
+              </div>
+                <img class="z" src="/img/product/主機_款式1(黑色).png" style="width:20% ">
+                
+              </div>
+
+              <div class="mySlides">
+                
+                <img class="z" src="/img/product/耳罩式耳機(黑色).png" style="width:20%">
+              </div>
+
+              
+                
+              
+              <a class="prev" onclick="plusSlides(-1)">❮</a>
+              <a class="next" onclick="plusSlides(1)">❯</a>
+
+              <div class="caption-container">
+                <p id="caption"></p>
+              </div>
+
+                <div class="row">
+                  <div class="column">
+                    <img class="demo cursor" src="/img/product/主機_款式1(黑色).png" style="width:50%"  onclick="currentSlide(1)" alt="主機" >
+                    
+                  </div>
+                  <div class="column">
+                    <img class="demo cursor" src="/img/product/耳罩式耳機(黑色).png" style="width:50%" onclick="currentSlide(2)" alt="耳罩式耳機">
+                  </div>
+                
+                </div>
+
+              <div class="aa">
+                <div class="row"></div>
+              </div>
+              
+            
+            </div>
+          </article>
+
+            
+          
+          
+          <article class="card" >
+          <div >
+            <div id="searchResults"></div>
+            
+            <div class="down">
+              <div id="主機" name="主機" class="productContent content">
+                <table>
+                  <h2>主機</h2>
+                  <tr>
+                    <img style="width:40%;" src="img/product/主機_款式1(黑色).png" onclick="showProductDetails('1')" />
+                  </tr>
+                  <tr>
+                    <img style="width:40%;" src="img/product/主機_款式2(白色).png" onclick="showProductDetails('2')" />
+                  </tr>
+                  <tr>
+                    <img style="width:40%;" src="img/product/主機_款式2(黑色).png" onclick="showProductDetails('3')" />
+                  </tr>
+                </table>
+              </div>
+              
+              <div id="手機" name="手機" class="productContent">
+                <h2>手機</h2>
+                <tr>
+                  <img style="width:40%;" src="img/product/智慧型手機(深藍色).png" onclick="showProductDetails('4')" />
+                </tr>
+                <tr>
+                  <img style="width:40%;" src="img/product/智慧型手機(淺藍色).png" onclick="showProductDetails('5')" />
+                </tr>
+                <tr>
+                  <img style="width:40%;" src="img/product/智慧型手機(白色).png" onclick="showProductDetails('6')" />
+                </tr>
+                <tr>
+                  <img style="width:40%;" src="img/product/智慧型手機(粉色).png" onclick="showProductDetails('7')" />
+                </tr>
+                <tr>
+                  <img style="width:40%;" src="img/product/智慧型手機(黑色).png" onclick="showProductDetails('8')" />
+                </tr>
+              </div>
+              
+              <div id="筆記型電腦" class="productContent">
+                <h2>筆記型電腦</h2>
+                <tr>
+                  <img style="width:40%;" src="img/product/筆記型電腦(白色).png" onclick="showProductDetails('9')" />
+                </tr>
+                <tr>
+                  <img style="width:40%;" src="img/product/筆記型電腦款式2(黑色).png" onclick="showProductDetails('10')"/>
+                </tr>
+              </div>
+              
+                        <div id="螢幕" class="productContent">
+              <h2>螢幕</h2>
+              <tr>
+                <img style="width:40%;" src="img/product/桌上式螢幕_款式1(黑色).png" onclick="showProductDetails('11')" />
+              </tr>
+              <tr>
+                <img style="width:40%;" src="img/product/桌上螢幕_款式2(可合併_白色).png" onclick="showProductDetails('12')" />
+              </tr>
+                        </div>
+                        <div id="鍵盤" class="productContent">
+              <h2>鍵盤</h2>
+              <tr>
+                <img style="width:40%;" src="img/product/鍵盤(淺藍色).png" onclick="showProductDetails('13')" />
+              </tr>
+              <tr>
+                <img style="width:40%;" src="img/product/鍵盤(灰白雙色).png" onclick="showProductDetails('14')" />
+              </tr>
+                        </div>
+                        <div id="滑鼠" class="productContent">
+              <h2>滑鼠</h2>
+              <tr>
+                <img style="width:40%;" src="img/product/滑鼠_款式1(黑色).png" onclick="showProductDetails('15')" />
+              </tr>
+              <tr>
+                <img style="width:40%;" src="img/product/滑鼠_款式2(白色).png" onclick="showProductDetails('16')" />
+              </tr>
+                        </div>
+                        
+                    
+                        <div id="耳機" name="耳機" class="productContent">
+              <h2>耳機</h2>
+              <table>
+                <tr>
+                  <img style="width:40%;" src="img/product/耳罩式耳機(黑色).png" onclick="showProductDetails('17')" />
+                </tr>
+                <tr>
+                  <img style="width:40%;" src="img/product/藍芽耳機(白色).png" onclick="showProductDetails('18')" />
+                </tr>
+                <tr>
+                  <img style="width:40%;" src="img/product/黑色有線耳機.png" onclick="showProductDetails('19')" />
+                </tr>
+              </table>
+                        </div>
+            </div>
+
+            
+          
+            <div id="text">
+              
+            </div>
+          </div>
+        </article>
+      
+
+      
+        <article class="card">
+          
+        </article>
+      </section>
+      
+       
+    </main>
+
+   
+    
+
+    <footer style="width: 1 00%;">
+     量子科技商城</h5>
+    </footer>
+</body>
+<script>
+  
+  function minus(num){
+      var number = Number(document.getElementsByClassName("item_num")[num].value);
+      if (number > 1){
+          number -= 1;
+          document.getElementsByClassName("item_num")[num].value = number;
+      }else window.alert("商品數量不得少於1");
+  }
+  function add(num) {
+      var number = Number(document.getElementsByClassName("item_num")[num].value);
+      if (number <100) {
+          number += 1;
+          document.getElementsByClassName("item_num")[num].value = number;
+      } else window.alert("商品數量不得超過100");
+  }
+  
+
+  function addToCart(num) {
+      var quantity = Number(document.getElementsByClassName("item_num")[num].value);
+      alert("已將 " + quantity + " 件商品加入購物車。"); 
+  }
+</script>
+<script src="total.js"></script>
+</html>
+
+

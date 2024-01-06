@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>商品評價</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header, section, footer {
+  width: 80%;
+  margin: 0 auto;
+}
+
+header {
+  background-color: rgb(191, 199, 245);
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+}
+
+section {
+  margin-top: 20px;
+}
+
+.product-details {
+  text-align: center;
+}
+
+.product-details img {
+  max-width: 100%;
+  height: auto;
+}
+
+.user-review, .reviews {
+  margin-top: 20px;
+}
+
+.review-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.review-form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.review-form button {
+  background-color:rgb(191, 199, 245);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+}
+
+.review {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rating {
+  color: gold;
+  font-size: 1.2em;
+}
+
+footer {
+  background-color: rgb(191, 199, 245);
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+  </style>
+  <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>商品評價</h1>
+  </header>
+
+  <section class="product-details">
+    <img src="product-image.jpg" alt="Product Image">
+    <h2>商品名稱</h2>
+    <p>商品描述:</p>
+  </section>
+
+  <section class="user-review">
+    <h2>用戶評價</h2>
+    <div class="review-form">
+      <label for="username">使用者名稱:</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="rating">評價:</label>
+    <div class="star" id="star-rating">
+        <iconify-icon
+        icon="material-symbols:star-outline"
+        width="40"
+        data-index="1"
+        class="star-icon"></iconify-icon>
+        <iconify-icon
+        icon="material-symbols:star-outline"
+        width="40"
+        data-index="2"
+        class="star-icon"></iconify-icon>
+        <iconify-icon
+        icon="material-symbols:star-outline"
+        width="40"
+        data-index="3"
+        class="star-icon"></iconify-icon>
+        <iconify-icon
+        icon="material-symbols:star-outline"
+        width="40"
+        data-index="4"
+        class="star-icon"></iconify-icon>
+        <iconify-icon
+        icon="material-symbols:star-outline"
+        width="40"
+        data-index="5"
+        class="star-icon"></iconify-icon>
+    </div>
+      
+
+      <label for="comment">評論:</label>
+      <textarea id="comment" name="comment" rows="4" required></textarea>
+
+      <button type="submit">提交評價</button>
+    </div>
+  </section>
+
+  <section class="reviews">
+    <h2>其他用戶的評價</h2>
+    <div class="review">
+      <div class="user-info">
+        <strong>使用者名稱</strong>
+        <span class="rating">★★★★★</span>
+      </div>
+      <p class="comment">評論內容...</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>量子科技商城</p>
+  </footer>
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+
+        const starRating = document.getElementById("star-rating");
+
+        const starIcons = starRating.querySelectorAll(".star-icon");
+
+        starIcons.forEach((starIcon) =>{
+            starIcon.addEventListener("click", function(){
+                const clickedIndex = parseInt(this.getAttribute("data-index"));
+
+                starIcons.forEach((icon, index) => {
+                    if(index < clickedIndex){
+                        icon.setAttribute("icon", "material-symbols:star");
+                    }
+                    else{
+                        icon.setAttribute("icon", "material-symbols:star-outline");
+                    }
+                });
+
+                console.log("selected Ration: " + clickedIndex);
+            })
+        });
+    });
+</script>
+</html>
